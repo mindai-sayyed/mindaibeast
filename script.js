@@ -56,6 +56,10 @@ function addToChat(sender, text, type) {
   chatbox.appendChild(msg);
   chatbox.scrollTop = chatbox.scrollHeight;
 }
+function toggleAbout() {
+  const aboutBox = document.getElementById("about-box");
+  aboutBox.classList.toggle("hidden");
+}
 
 // Prompt templates (bottom button clicks)
 document.querySelectorAll(".prompt-btn").forEach(button => {
