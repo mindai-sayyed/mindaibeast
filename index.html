@@ -1,37 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Mind Ai</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div id="chat-container">
-    <header>
-      <h1>Mind Ai <span class="dropdown">▼</span></h1>
-      <div class="plan-dropdown">
-        <div class="plan-option">🧠 Normal - Best for everyday tasks</div>
-        <div class="plan-option">
-          ⚡ Pro - Smartest model<br>
-          <a href="https://www.youtube.com/@MindAI-Shorts10" target="_blank">Subscribe to unlock</a>
-        </div>
-      </div>
-    </header>
+  <div id="auth-section">
+    <h2>Welcome to Mind Ai</h2>
+    <input type="text" id="username" placeholder="Enter your name" />
+    <input type="password" id="password" placeholder="Enter password" />
+    <button onclick="login()">Sign In</button>
+  </div>
 
-    <main id="chatbox"></main>
+  <div id="chat-section" class="hidden">
+    <div id="top-bar">
+      <span id="userDisplay"></span>
+      <button onclick="toggleModel()" id="modelButton">Model: Normal</button>
+    </div>
+
+    <div id="chatbox"></div>
     <div id="typing">Mind Ai is typing...</div>
 
     <div id="prompt-buttons">
-      <button onclick="setPrompt('Who are you?')">Who are you?</button>
-      <button onclick="setPrompt('Summarize this text: ')">Summarize</button>
-      <button onclick="setPrompt('Translate this to French: ')">Translate</button>
-      <button onclick="setPrompt('Give me ideas for a project')">Project Ideas</button>
+      <button onclick="usePrompt('Summarize this: ')">Summarize</button>
+      <button onclick="usePrompt('Translate to Hindi: ')">Translate</button>
+      <button onclick="usePrompt('Explain like I am 5: ')">Explain</button>
     </div>
 
     <div id="input-area">
       <input type="text" id="userInput" placeholder="Type your message..." />
       <button onclick="sendMessage()">➤</button>
+    </div>
+
+    <div id="verify-area">
+      <button onclick="verifyUser()">🔒 Verify</button>
+      <button onclick="subscribeUser()">💎 Subscribe</button>
     </div>
   </div>
 
