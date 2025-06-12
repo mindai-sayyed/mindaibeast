@@ -2,30 +2,33 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mind Ai</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <div id="top-bar">
-      <div id="brand">
-        Mind Ai <span id="dropdown-arrow">⌄</span>
-        <div id="model-dropdown" class="hidden">
-          <div class="model-option selected" onclick="setModel('normal')">
-            Normal<br><small>Best for Everyday Tasks</small>
-          </div>
-          <div class="model-option locked" onclick="subscribeAlert()">
-            Pro<br><small>Fastest Responses</small>
-            <button class="subscribe-btn" onclick="subscribeNow(event)">Subscribe Now</button>
-          </div>
+  <div id="chat-container">
+    <header>
+      <h1>Mind Ai <span class="dropdown">▼</span></h1>
+      <div class="plan-dropdown">
+        <div class="plan-option">🧠 Normal - Best for everyday tasks</div>
+        <div class="plan-option">
+          ⚡ Pro - Smartest model<br>
+          <a href="https://www.youtube.com/@MindAI-Shorts10" target="_blank">Subscribe to unlock</a>
         </div>
       </div>
-    </div>
-  </header>
+    </header>
 
-  <div id="chat-section">
-    <div id="chatbox"></div>
-    <div id="typing">Mind Ai is thinking<span class="dots">...</span></div>
+    <main id="chatbox"></main>
+    <div id="typing">Mind Ai is typing...</div>
+
+    <div id="prompt-buttons">
+      <button onclick="setPrompt('Who are you?')">Who are you?</button>
+      <button onclick="setPrompt('Summarize this text: ')">Summarize</button>
+      <button onclick="setPrompt('Translate this to French: ')">Translate</button>
+      <button onclick="setPrompt('Give me ideas for a project')">Project Ideas</button>
+    </div>
+
     <div id="input-area">
       <input type="text" id="userInput" placeholder="Type your message..." />
       <button onclick="sendMessage()">➤</button>
