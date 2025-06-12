@@ -1,0 +1,154 @@
+body {
+  margin: 0;
+  background-color: #121212;
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#top-bar {
+  background: #1a1a1a;
+  padding: 12px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  border-bottom: 1px solid #333;
+  position: relative;
+}
+
+#brand {
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+}
+
+#dropdown-arrow {
+  font-size: 14px;
+  margin-left: 6px;
+}
+
+#model-dropdown {
+  position: absolute;
+  top: 38px;
+  left: 0;
+  background: #222;
+  border: 1px solid #444;
+  border-radius: 5px;
+  overflow: hidden;
+  width: 260px;
+  z-index: 100;
+}
+
+.model-option {
+  padding: 12px;
+  cursor: pointer;
+  border-bottom: 1px solid #333;
+}
+
+.model-option small {
+  display: block;
+  font-size: 12px;
+  color: #aaa;
+  margin-top: 4px;
+}
+
+.model-option.locked {
+  color: gray;
+  position: relative;
+}
+
+.subscribe-btn {
+  background-color: #4a90e2;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  font-size: 13px;
+  border-radius: 5px;
+  margin-top: 6px;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+#chat-section {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+#chatbox {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.message {
+  max-width: 80%;
+  white-space: pre-wrap;
+  line-height: 1.5;
+}
+
+.user {
+  align-self: flex-end;
+  background-color: #1f1f1f;
+  padding: 10px 15px;
+  border-radius: 10px;
+}
+
+.bot {
+  align-self: flex-start;
+  background-color: #2a2a2a;
+  padding: 10px 15px;
+  border-radius: 10px;
+}
+
+#input-area {
+  display: flex;
+  padding: 10px;
+  background-color: #1a1a1a;
+}
+
+#userInput {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  background-color: #333;
+  color: white;
+}
+
+#input-area button {
+  margin-left: 10px;
+  padding: 12px 16px;
+  background-color: #4a90e2;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  color: white;
+  font-size: 16px;
+}
+
+#typing {
+  color: #888;
+  padding: 0 20px 10px;
+  font-size: 14px;
+  display: none;
+}
+
+.dots::after {
+  content: '...';
+  animation: dots 1s infinite steps(3, end);
+}
+
+@keyframes dots {
+  0% { content: '.'; }
+  33% { content: '..'; }
+  66% { content: '...'; }
+}

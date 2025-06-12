@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mind Ai</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div id="top-bar">
+      <div id="brand">
+        Mind Ai <span id="dropdown-arrow">⌄</span>
+        <div id="model-dropdown" class="hidden">
+          <div class="model-option selected" onclick="setModel('normal')">
+            Normal<br><small>Best for Everyday Tasks</small>
+          </div>
+          <div class="model-option locked" onclick="subscribeAlert()">
+            Pro<br><small>Fastest Responses</small>
+            <button class="subscribe-btn" onclick="subscribeNow(event)">Subscribe Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div id="chat-section">
+    <div id="chatbox"></div>
+    <div id="typing">Mind Ai is thinking<span class="dots">...</span></div>
+    <div id="input-area">
+      <input type="text" id="userInput" placeholder="Type your message..." />
+      <button onclick="sendMessage()">➤</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
