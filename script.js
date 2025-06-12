@@ -1,85 +1,58 @@
-let chatHistory = JSON.parse(localStorage.getItem("mindai_chat")) || [];
-let modelType = "normal";
+const chatContainer = document.getElementById('chat-container');
+const userInput = document.getElementById('user-input');
+const sendButton = document.getElementById('send-btn');
+const promptButtons = document.querySelectorAll('.prompt-btn');
 
-function login() {
-  const name = document.getElementById("username").value.trim();
-  const pass = document.getElementById("password").value.trim();
-  if (!name || !pass) return alert("Enter name and password");
-  
-  localStorage.setItem("mindai_user", name);
-  localStorage.setItem("mindai_pass", pass);
-  document.getElementById("auth-section").classList.add("hidden");
-  document.getElementById("chat-section").classList.remove("hidden");
-  document.getElementById("userDisplay").innerText = `👤 ${name}`;
-  loadHistory();
+const BACKEND_URL = 'https://mindai-backend.sayyedfaeez93.workers.dev/';
+
+function appendMessage(message, className) {
+    const msgDiv = document.createElement('div');
+    msgDiv.className = `message ${className}`;
+    msgDiv.textContent = message;
+    chatContainer.appendChild(msgDiv);
+    chatContainer.scrollTop = chatContainer.scrollHeight;
 }
 
-function subscribeUser() {
-  localStorage.setItem("mindai_sub", "true");
-  alert("Subscribed! You can now use Pro model.");
+async function sendMessage(message) {
+    appendMessage(message, 'user');
+
+    try {
+        const response = await fetch(BACKEND_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ message })
+        });
+
+        if (!response.ok) {
+            throw new Error('Server error');
+        }
+
+        const data = await response.json();
+        appendMessage(data.reply || 'No reply from AI.', 'bot');
+    } catch (err) {
+        appendMessage('⚠️ Error: ' + err.message, 'bot');
+    }
 }
 
-function verifyUser() {
-  const sub = localStorage.getItem("mindai_sub");
-  if (sub === "true") {
-    alert("Verified as Pro user ✅");
-  } else {
-    alert("You're not subscribed ❌");
-  }
-}
+sendButton.addEventListener('click', () => {
+    const message = userInput.value.trim();
+    if (message) {
+        sendMessage(message);
+        userInput.value = '';
+    }
+});
 
-function toggleModel() {
-  modelType = modelType === "normal" ? "pro" : "normal";
-  document.getElementById("modelButton").innerText = `Model: ${modelType.charAt(0).toUpperCase() + modelType.slice(1)}`;
-}
+userInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        sendButton.click();
+    }
+});
 
-function loadHistory() {
-  const chatbox = document.getElementById("chatbox");
-  chatbox.innerHTML = "";
-  chatHistory.forEach(msg => {
-    addToChat(msg.role === "user" ? "You" : "Mind Ai", msg.content, msg.role);
-  });
-}
-
-async function sendMessage() {
-  const input = document.getElementById("userInput");
-  const message = input.value.trim();
-  if (!message) return;
-
-  addToChat("You", message, "user");
-  chatHistory.push({ role: "user", content: message });
-  input.value = "";
-  localStorage.setItem("mindai_chat", JSON.stringify(chatHistory));
-  document.getElementById("typing").style.display = "block";
-
-  const res = await fetch("https://mind-ai-bot.glitch.me/", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      messages: chatHistory,
-      model: modelType
-    })
-  });
-
-  const data = await res.json();
-  const reply = data.reply;
-  chatHistory.push({ role: "assistant", content: reply });
-  localStorage.setItem("mindai_chat", JSON.stringify(chatHistory));
-  addToChat("Mind Ai", reply, "bot");
-  document.getElementById("typing").style.display = "none";
-}
-
-function usePrompt(text) {
-  document.getElementById("userInput").value = text;
-}
-
-function addToChat(sender, text, type) {
-  const chatbox = document.getElementById("chatbox");
-  const msg = document.createElement("div");
-  msg.className = `message ${type}`;
-  msg.textContent = text;
-  chatbox.appendChild(msg);
-  chatbox.scrollTop = chatbox.scrollHeight;
-}
+promptButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+        userInput.value = btn.textContent;
+        sendButton.click();
+    });
+});
