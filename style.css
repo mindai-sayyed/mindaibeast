@@ -1,3 +1,124 @@
+body {
+  margin: 0;
+  background-color: #121212;
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#chat-section {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+#chatbox {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.message {
+  max-width: 80%;
+  white-space: pre-wrap;
+  line-height: 1.5;
+}
+
+.user {
+  align-self: flex-end;
+  background-color: #1f1f1f;
+  padding: 10px 15px;
+  border-radius: 10px;
+}
+
+.bot {
+  align-self: flex-start;
+  background-color: #2a2a2a;
+  padding: 10px 15px;
+  border-radius: 10px;
+}
+
+#input-area {
+  display: flex;
+  padding: 10px;
+  background-color: #1a1a1a;
+}
+
+#userInput {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  background-color: #333;
+  color: white;
+}
+
+#input-area button {
+  margin-left: 10px;
+  padding: 12px 16px;
+  background-color: #4a90e2;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  color: white;
+  font-size: 16px;
+}
+
+#typing {
+  color: #888;
+  padding: 5px 20px;
+  display: none;
+  font-size: 14px;
+}
+
+#prompt-buttons {
+  display: flex;
+  justify-content: space-around;
+  padding: 8px;
+  background: #1a1a1a;
+  flex-wrap: wrap;
+}
+
+#prompt-buttons button {
+  margin: 5px;
+  background: #2a2a2a;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+@media (max-width: 600px) {
+  #prompt-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #prompt-buttons button {
+    width: 90%;
+  }
+
+  #input-area {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  #input-area button {
+    width: 100%;
+  }
+
+  #userInput {
+    width: 100%;
+  }
+}
 header {
   display: flex;
   justify-content: space-between;
