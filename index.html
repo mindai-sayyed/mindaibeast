@@ -7,17 +7,28 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div id="chat-section">
+  <header>
+    <div class="title">Mind Ai 💡</div>
+    <button class="about-btn" onclick="toggleAbout()">About</button>
+  </header>
+
+  <div id="about-box" class="hidden">
+    <p>
+      A large AI chatbot created by Sayyed Faeez.<br />
+      Where you can ask anything.<br />
+      For More Info Visit – <a href="https://mindaiinfo.pages.dev" target="_blank">mindaiinfo.pages.dev</a>
+    </p>
+    <button onclick="toggleAbout()">Close</button>
+  </div>
+
+  <main>
     <div id="chatbox"></div>
     <div id="typing">Mind Ai is typing...</div>
-
-    
-
     <div id="input-area">
       <input type="text" id="userInput" placeholder="Type your message..." />
       <button onclick="sendMessage()">➤</button>
     </div>
-  </div>
+  </main>
 
   <script src="script.js"></script>
 </body>
