@@ -8,46 +8,75 @@ body {
   flex-direction: column;
 }
 
+#top-bar {
+  background: #1a1a1a;
+  padding: 12px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  border-bottom: 1px solid #333;
+  position: relative;
+}
+
+#brand {
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+}
+
+#dropdown-arrow {
+  font-size: 14px;
+  margin-left: 6px;
+}
+
+#model-dropdown {
+  position: absolute;
+  top: 38px;
+  left: 0;
+  background: #222;
+  border: 1px solid #444;
+  border-radius: 5px;
+  overflow: hidden;
+  width: 260px;
+  z-index: 100;
+}
+
+.model-option {
+  padding: 12px;
+  cursor: pointer;
+  border-bottom: 1px solid #333;
+}
+
+.model-option small {
+  display: block;
+  font-size: 12px;
+  color: #aaa;
+  margin-top: 4px;
+}
+
+.model-option.locked {
+  color: gray;
+  position: relative;
+}
+
+.subscribe-btn {
+  background-color: #4a90e2;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  font-size: 13px;
+  border-radius: 5px;
+  margin-top: 6px;
+  cursor: pointer;
+}
+
 .hidden {
   display: none;
-}
-
-#auth-section {
-  margin: auto;
-  text-align: center;
-}
-
-#auth-section input {
-  padding: 10px;
-  font-size: 16px;
-  margin: 10px;
-  width: 80%;
-  max-width: 300px;
-  border: none;
-  border-radius: 5px;
-}
-
-#auth-section button {
-  background: #333;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
 }
 
 #chat-section {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-}
-
-#top-bar {
-  padding: 10px;
-  display: flex;
-  justify-content: space-between;
-  background: #1f1f1f;
-  font-size: 14px;
+  height: 100%;
 }
 
 #chatbox {
@@ -108,58 +137,18 @@ body {
 
 #typing {
   color: #888;
-  padding: 5px 20px;
+  padding: 0 20px 10px;
+  font-size: 14px;
   display: none;
-  font-size: 14px;
 }
 
-#prompt-buttons {
-  display: flex;
-  justify-content: space-around;
-  padding: 8px;
-  background: #1a1a1a;
-  flex-wrap: wrap;
+.dots::after {
+  content: '...';
+  animation: dots 1s infinite steps(3, end);
 }
 
-#prompt-buttons button {
-  margin: 5px;
-  background: #2a2a2a;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-#verify-area {
-  padding: 8px;
-  text-align: center;
-  background: #1f1f1f;
-}
-
-#verify-area button {
-  margin: 0 10px;
-  background: #4a90e2;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 6px;
-  color: white;
-  cursor: pointer;
-}
-
-@media (max-width: 600px) {
-  #prompt-buttons {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  #prompt-buttons button {
-    width: 90%;
-  }
-
-  #verify-area button {
-    margin: 5px 0;
-    width: 90%;
-  }
+@keyframes dots {
+  0% { content: '.'; }
+  33% { content: '..'; }
+  66% { content: '...'; }
 }
