@@ -1,10 +1,36 @@
-const BACKEND_URL = "https://mind-ai-bot.glitch.me/chat";
 let chatHistory = JSON.parse(localStorage.getItem("mindai_chat")) || [];
+let modelType = "normal";
 
-function startChat() {
+function login() {
+  const name = document.getElementById("username").value.trim();
+  const pass = document.getElementById("password").value.trim();
+  if (!name || !pass) return alert("Enter name and password");
+  
+  localStorage.setItem("mindai_user", name);
+  localStorage.setItem("mindai_pass", pass);
   document.getElementById("auth-section").classList.add("hidden");
   document.getElementById("chat-section").classList.remove("hidden");
+  document.getElementById("userDisplay").innerText = `👤 ${name}`;
   loadHistory();
+}
+
+function subscribeUser() {
+  localStorage.setItem("mindai_sub", "true");
+  alert("Subscribed! You can now use Pro model.");
+}
+
+function verifyUser() {
+  const sub = localStorage.getItem("mindai_sub");
+  if (sub === "true") {
+    alert("Verified as Pro user ✅");
+  } else {
+    alert("You're not subscribed ❌");
+  }
+}
+
+function toggleModel() {
+  modelType = modelType === "normal" ? "pro" : "normal";
+  document.getElementById("modelButton").innerText = `Model: ${modelType.charAt(0).toUpperCase() + modelType.slice(1)}`;
 }
 
 function loadHistory() {
@@ -15,9 +41,9 @@ function loadHistory() {
   });
 }
 
-async function sendMessage(customPrompt = null) {
+async function sendMessage() {
   const input = document.getElementById("userInput");
-  let message = customPrompt || input.value.trim();
+  const message = input.value.trim();
   if (!message) return;
 
   addToChat("You", message, "user");
@@ -26,26 +52,27 @@ async function sendMessage(customPrompt = null) {
   localStorage.setItem("mindai_chat", JSON.stringify(chatHistory));
   document.getElementById("typing").style.display = "block";
 
-  try {
-    const res = await fetch(BACKEND_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ messages: chatHistory })
-    });
+  const res = await fetch("https://mind-ai-bot.glitch.me/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      messages: chatHistory,
+      model: modelType
+    })
+  });
 
-    const data = await res.json();
-    const reply = data.choices[0].message.content;
-
-    chatHistory.push({ role: "assistant", content: reply });
-    localStorage.setItem("mindai_chat", JSON.stringify(chatHistory));
-    addToChat("Mind Ai", reply, "bot");
-  } catch (err) {
-    addToChat("Mind Ai", "❌ Error reaching backend. Please try again.", "bot");
-  }
-
+  const data = await res.json();
+  const reply = data.reply;
+  chatHistory.push({ role: "assistant", content: reply });
+  localStorage.setItem("mindai_chat", JSON.stringify(chatHistory));
+  addToChat("Mind Ai", reply, "bot");
   document.getElementById("typing").style.display = "none";
+}
+
+function usePrompt(text) {
+  document.getElementById("userInput").value = text;
 }
 
 function addToChat(sender, text, type) {
@@ -56,11 +83,3 @@ function addToChat(sender, text, type) {
   chatbox.appendChild(msg);
   chatbox.scrollTop = chatbox.scrollHeight;
 }
-
-// Prompt templates (bottom button clicks)
-document.querySelectorAll(".prompt-btn").forEach(button => {
-  button.addEventListener("click", () => {
-    const prompt = button.getAttribute("data-prompt");
-    sendMessage(prompt);
-  });
-});
